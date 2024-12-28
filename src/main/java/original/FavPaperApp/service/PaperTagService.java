@@ -29,7 +29,7 @@ public class PaperTagService {
     public void deletePaperTag(int paperId, int tagId) throws Exception {
         int rowsAffected = mapper.deletePaperTag(paperId, tagId);
         if (rowsAffected == 0) {  //削除されなかった場合
-            throw new NotFoundException("paperId：" + paperId + "tagId：" + tagId + "の組み合わせは見つかりません");
+            throw new NotFoundException("paperId: " + paperId + "tagId: " + tagId + "の組み合わせは見つかりません");
         }
     }
 

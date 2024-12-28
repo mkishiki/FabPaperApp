@@ -21,7 +21,7 @@ public interface UserMapper {
     User selectUser(String email);
 
     //ユーザーの登録
-    @Insert("insert user(user_name, email) values(#{userName}, #{email})")
+    @Insert("insert user(user_name, email, password, roles) values(#{userName}, #{email}, #{password}, #{roles})")
     void insertUser(User user);
 
     @Delete("delete from user where user_id = #{userId}")

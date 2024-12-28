@@ -1,5 +1,6 @@
 package original.FavPaperApp.service;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import original.FavPaperApp.mapper.UserMapper;
 import original.FavPaperApp.mapper.data.Paper;
@@ -11,9 +12,11 @@ import java.util.List;
 public class UserService {
 
     public final UserMapper mapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserMapper mapper)  {
+    public UserService(UserMapper mapper, PasswordEncoder passwordEncoder)  {
         this.mapper = mapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     //ユーザーの一覧表示
@@ -30,8 +33,10 @@ public class UserService {
     public User registerUser(User user) throws Exception {
         User existsUser = searchUser(user.getEmail());
         if (existsUser != null){  //例外処理
-            throw new DuplicateException("メールアドレス" + user.getEmail() + "はすでに登録されています");
+            throw new DuplicateException("メールアドレス: " + user.getEmail() + "はすでに登録されています");
         }
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         mapper.insertUser(user);
         return mapper.selectUser(user.getEmail());
     }
@@ -40,7 +45,7 @@ public class UserService {
     public void deleteUser(int userId) throws Exception {
         int rowsAffected = mapper.deleteUser(userId);
         if (rowsAffected == 0) {  //削除されなかった場合
-            throw new NotFoundException("userId：" + userId + "が見つかりません");
+            throw new NotFoundException("userId: " + userId + "が見つかりません");
         }
     }
 

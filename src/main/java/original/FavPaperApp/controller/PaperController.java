@@ -35,18 +35,6 @@ public class PaperController {
         return service.searchPaperName(paperName);
     }
 
-//
-//    //タグで検索して表示
-//    @GetMapping("/paper/by_tag")
-//    public ResponseEntity<List<Paper>> getPapersByTagId(@RequestParam int tagId) {
-//        List<PaperWithTagDTO> papers = service.getPapersByTagId(tagId);
-//        if (papers.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity<>(papers, HttpStatus.OK);
-//    }
-
-
     //紙の登録
     @PostMapping(value = "/paper")
     public ResponseEntity<Paper> registerPaper(@RequestBody Paper paper) throws Exception{

@@ -20,10 +20,11 @@ public interface PaperMapper {
     @Insert("insert paper(paper_name, type_id) values(#{paperName}, #{typeId})")
     void insertPaper(Paper paper);
 
-    //紙名が一致する列の、紙の種類を登録
+    //type_nameが一致する列にtype_idを上書き（紙の種類を上書き）
     @Update("update paper set type_id = #{typeId} where paper_name = #{paperName}")
     void updatePaper(Paper paper);
 
+    //紙の削除
     @Delete("delete from paper where paper_id = #{paperId}")
     int deletePaper(int paperId); // 削除された行数を返す
 }

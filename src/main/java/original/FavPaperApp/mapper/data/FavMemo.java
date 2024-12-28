@@ -15,7 +15,7 @@ public class FavMemo {
     private int userId;
     private int paperId;
     private int fav;
-    private Text memo;
+    private String memo;
     private LocalDateTime registeredAt;
 
 }

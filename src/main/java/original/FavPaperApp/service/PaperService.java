@@ -28,7 +28,6 @@ public class PaperService {
         return mapper.selectPaper(paperName);
     }
 
-
     //紙の登録
     public Paper registerPaper(Paper paper) throws Exception {
         Paper existsPaper = searchPaperName(paper.getPaperName());

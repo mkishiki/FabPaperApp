@@ -16,10 +16,10 @@ public class PaperWithTagDTOController {
         this.service = service;
     }
 
-    // タグIDで紙とタグの情報を取得
+    // タグIDで紙とタグ名を取得
     @GetMapping("/paper/with_tag")
-    public ResponseEntity<List<PaperWithTagDTO>> getPapersByTagId(@RequestParam int tagId) {
-        List<PaperWithTagDTO> papersWithTag = service.getPapersByTagId(tagId);
-        return ResponseEntity.ok(papersWithTag);
+        public ResponseEntity<List<PaperWithTagDTO>> searchPaperListWithTag(@RequestParam int tagId) {
+        List<PaperWithTagDTO> paperListWithTag = service.searchPaperListWithTag(tagId);
+        return ResponseEntity.ok(paperListWithTag);
     }
 }

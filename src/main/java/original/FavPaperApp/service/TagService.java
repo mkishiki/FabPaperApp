@@ -35,7 +35,7 @@ public class TagService {
     public void deleteTag(int tagId) throws Exception {
         int rowsAffected = mapper.deleteTag(tagId);
         if (rowsAffected == 0) {  //削除されなかった場合
-            throw new NotFoundException("指定された tagId は見つかりません: " + tagId);
+            throw new NotFoundException("tagId: " + tagId + "が見つかりません: ");
         }
     }
 

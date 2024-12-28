@@ -16,7 +16,7 @@ public class PaperWithTagDTOService {
     }
 
     // タグIDで紙とタグの情報を取得する
-    public List<PaperWithTagDTO> getPapersByTagId(int tagId) {
+    public List<PaperWithTagDTO> searchPaperListWithTag(int tagId) {
         return paperWithTagDTOMapper.findPapersByTagId(tagId);
     }
 }

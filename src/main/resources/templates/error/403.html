@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>権限エラー</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>実行する権限がありません</h1>
+<ul>
+    <li>status : [[${status}]]
+    <li>error : [[${error}]]
+</ul>
+<a th:href="@{/}">トップページへ</a>
+</body>
+</html>
