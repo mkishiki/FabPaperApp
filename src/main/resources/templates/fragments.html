@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>共通部分</title>
+</head>
+<body>
+<!-- ヘッダーのFragment -->
+<div th:fragment="header">
+    <h3>Fav Paper</h3>
+    <nav>
+        <a href="/">トップ</a>
+        <a href="/fav_memo/list">お気に入り</a>
+        <form action="/logout" method="post" style="display: inline;">
+            <button type="submit">ログアウト</button>
+        </form>
+    </nav>
+</div>
+
+<!-- フッターのFragment -->
+<div th:fragment="footer" class="site-footer">
+    <p>&copy; 2025 Kishiki. All Rights Reserved.</p>
+</div>
+</body>
+</html>

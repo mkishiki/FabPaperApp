@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ログアウト完了</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<!-- ログアウト後のメッセージ -->
+<div>
+    <h3>ログアウトしました</h3>
+    <p>ご利用いただきありがとうございました。</p>
+    <p><a href="/">トップに戻る</a></p>
+</div>
+
+<br><br>
+<!-- ゲストログインボタン -->
+<div>
+    <button id="guest-login" type="button">ゲストログイン</button>
+</div>
+<br>
+<div>
+    <button id="admin-login" type="button">管理者ログイン</button>
+</div>
+
+<script>
+    document.getElementById('guest-login').addEventListener('click', function() {
+        document.querySelector('input[name="username"]').value = 'test1@example.com';
+        document.querySelector('input[name="password"]').value = 'test1';
+        document.querySelector('form').submit();
+    });
+    document.getElementById('admin-login').addEventListener('click', function() {
+        document.querySelector('input[name="username"]').value = 'admin@example.com';
+        document.querySelector('input[name="password"]').value = 'admin';
+        document.querySelector('form').submit();
+    });
+</script>
+
+<div th:insert="~{fragments.html :: footer}"></div>
+</body>
+</html>

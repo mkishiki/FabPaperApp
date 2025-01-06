@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fav Paper</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<img src="/images/title.png" alt="Title Image" />
+<br><br>
+<!-- その他のコンテンツ -->
+
+
+<!-- ログインフォーム -->
+<div>
+    <form action="/login" method="post">
+        <input type="email" name="username" placeholder="メールアドレス" required>
+        <input type="password" name="password" placeholder="パスワード" required>
+        <button type="submit">ログイン</button>
+    </form>
+</div>
+<br>
+<div>
+    <!-- テスト用ログインボタン -->
+    <button id="guest-login" type="button">ゲストログイン</button>
+</div>
+<br><br>
+<div>
+    <button id="admin-login" type="button">管理者ログイン</button>
+</div>
+
+<script>
+    document.getElementById('guest-login').addEventListener('click', function() {
+        document.querySelector('input[name="username"]').value = 'test1@example.com';
+        document.querySelector('input[name="password"]').value = 'test1';
+        document.querySelector('form').submit();
+    });
+    document.getElementById('admin-login').addEventListener('click', function() {
+        document.querySelector('input[name="username"]').value = 'admin@example.com';
+        document.querySelector('input[name="password"]').value = 'admin';
+        document.querySelector('form').submit();
+    });
+</script>
+
+<div th:insert="~{fragments.html :: footer}"></div>
+</body>
+</html>

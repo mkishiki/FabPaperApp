@@ -1,0 +1,61 @@
+table {
+    width: 80%;
+    margin: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.8rem;
+    text-align: left;
+}
+
+thead th {
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    text-align: left;
+    padding: 8px;
+    border-right: 1px dotted #999;
+    /* 列の幅を指定 */
+    width: 200px; /* デフォルトの幅 */
+}
+
+/* 最初の3列の幅を指定 */
+thead th:nth-child(1),
+tbody td:nth-child(1) {
+    width: 180px;
+}
+
+thead th:nth-child(2),
+tbody td:nth-child(2) {
+    width: 100px;
+}
+
+thead th:nth-child(3),
+tbody td:nth-child(3) {
+    width: 300px;
+}
+
+thead th:nth-child(4),
+tbody td:nth-child(4) {
+    width: auto; /* 残りの幅を自動的に割り当て */
+}
+
+tbody td {
+    padding: 8px;
+    border-right: 1px dotted #999;
+}
+
+tbody td:last-child {
+    border-right: none;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f0f0f0;
+}
+
+tbody tr:hover {
+    background-color: #fff0aa;
+}
+
+.site-footer {
+    font-size: 50%;
+    color: #333;
+}

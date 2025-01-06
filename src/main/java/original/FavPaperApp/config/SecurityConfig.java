@@ -39,23 +39,33 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())  // 開発環境のみ、CSRF保護を無効化
-                .formLogin(login -> login //  フォーム認証を使う
-                        .permitAll()) //  フォーム認証画面は認証不要
+                .formLogin(login -> login
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/paper/list", true) // ログイン成功後にリダイレクトするURL
+                        .permitAll()  // ログインURLは認証不要
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/logout-success")
+                        .permitAll()  // ログアウトURLは認証不要
+                )
+
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers( // 認証不要
                                 "/css/**",
+                                "/images/**",
                                 "/",
-                                "/paper", //紙の検索
-                                "/paper/list", //紙の一覧
-                                "/user" //ユーザー登録
+                                "/logout-success"
+//                              "/user" //ユーザー登録
                         ).permitAll()
 
-                        .requestMatchers(HttpMethod.POST, // POSTリクエストの認証不要
-                                "/user" //ユーザー登録
-                        ).permitAll()
+//                        .requestMatchers(HttpMethod.POST, // POSTリクエストの認証不要
+//                                "/user" //ユーザー登録
+//                        ).permitAll()
 
                         .requestMatchers(  // adminロールのみアクセス可能
                                 "/paper/edit",
+                                "/fav_memo/list",
                                 "/user/list",
                                 "/user/edit"
                         ).hasRole("ADMIN")
@@ -67,8 +77,13 @@ public class SecurityConfig {
                         .hasRole("ADMIN")
 
                         .anyRequest().authenticated() //  他のURLはログイン後アクセス可能
-
-        );
+                )
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            // 未認証時に index ページにリダイレクト
+                            response.sendRedirect("/");
+                        })
+                );
 
         return http.build();
     }

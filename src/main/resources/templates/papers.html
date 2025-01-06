@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>紙の一覧</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:insert="fragments.html :: header"></div>
+
+<h2>紙の一覧</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>紙の名前</th>
+        <th>種類</th>
+        <th>説明</th>
+        <th>タグ</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="paper : ${papers}">
+        <td th:text="${paper.paperName}"></td>
+        <td th:text="${paper.typeName}"></td>
+        <td th:text="${paper.description != null ? paper.description : 'No description'}"></td>
+        <td th:text="${paper.tagNames}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:insert="~{fragments.html :: footer}"></div>
+</body>
+</html>

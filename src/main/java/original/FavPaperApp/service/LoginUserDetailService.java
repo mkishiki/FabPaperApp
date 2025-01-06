@@ -5,6 +5,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -30,12 +32,12 @@ public class LoginUserDetailService implements UserDetailsService {
         // rolesフィールドから権限を取得
         String role = "ROLE_" + appUser.getRoles().toUpperCase(); // ROLE_プレフィックスを追加
 
-
         // Spring SecurityのUserDetailsを構築
         return new User(
                 appUser.getEmail(),
-                appUser.getPassword(),
+                appUser.getPassword(), // データベースから取得したエンコード済みパスワードをそのまま使用
                 Collections.singletonList(new SimpleGrantedAuthority(role))
         );
+
     }
 }
