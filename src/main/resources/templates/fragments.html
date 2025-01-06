@@ -8,6 +8,8 @@
 <div th:fragment="header">
     <h3>Fav Paper</h3>
     <nav>
+        <span th:text="${userName} + 'さん'">ゲストさん</span>
+        <br>
         <a href="/">トップ</a>
         <a href="/fav_memo/list">お気に入り</a>
         <form action="/logout" method="post" style="display: inline;">

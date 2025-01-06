@@ -15,7 +15,8 @@ public class PaperViewDTOService {
         this.mapper = paperViewDTOMapper;
     }
 
-    public List<PaperViewDTO> getPaper() {
+    //紙の一覧（用途、タグ含む）を表示
+    public List<PaperViewDTO> showPaperAll() {
         return mapper.selectPaperListAll();
     }
 }
