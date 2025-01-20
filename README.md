@@ -1,18 +1,82 @@
-![タイトル](https://github.com/user-attachments/assets/8dcc636c-8551-41dd-ba00-0e58ac0b6dbd)
+
+![title](https://github.com/user-attachments/assets/87c72f69-c500-47f6-83bb-357ab648e2b2)
 
 ## アプリケーション概要
-紙の銘柄情報を検索して自分のお気に入りリストを作るアプリです。
+近年、同人誌やZINEなど、少部数の本・冊子などを個人でつくりやすい環境が整ってきています。
+しかしいざ印刷所に注文する際、さまざまな種類の紙があってどれを選べばいいのか悩ませます。
+Fav Paperは、本づくり初心者のための印刷用紙辞典です。
 
-想定しているユーザーは、仕事でさまざまな紙を扱うデザイナーや、同人誌やZINEを作っている紙の愛好家です。  
-世の中にはたくさんの紙がありますが、メーカーが異なっているとなかなか横断して情報を集めたり、サンプルを入手しないと特徴を掴めなかったり、一度使った紙も忘れてしまったりします。  
-このアプリでは、自分が探している紙や特徴を記録しておきたい紙を、紙の名前・種類・特徴などから検索し、お気に入りとしてストックすることができます。
-アナログとデジタルをつなげ、豊かな創作につなげるアプリです。
+専門家による紙の特徴説明を読んだり、紙の用途（カバー・表紙・本文など）、手触り、特徴などで検索したりして、
+評価やメモをつけてストックすることができます。
+また、セット登録機能は、気になった本で使われている紙の一式や、自分で使った紙の一式を記録するのに便利です。
+
+Fav Paperは、本づくりに便利な、紙選びが楽しくなるWebアプリケーションです。
 
 ## ER図
-![スクリーンショット 2024-12-28 22 32 03](https://github.com/user-attachments/assets/be285f71-27f6-4634-8c92-ba9c3c762f45)
+```mermaid
+erDiagram
+    PAPER {
+        int paper_id PK
+        string paper_name
+        int type_id FK
+    }
 
-## URL一覧
-![スクリーンショット 2024-12-28 22 37 56](https://github.com/user-attachments/assets/a5bf5648-925a-42f7-8e8e-b63f0b0aa2fe)
+    TAG {
+        int tag_id PK
+        string tag_name
+    }
+
+    PAPER_TAG {
+        int paper_id PK,FK
+        int tag_id PK,FK
+    }
+
+    USER {
+        int user_id PK
+        string user_name
+        string email
+        string password
+        string roles
+    }
+
+    PAPER_TYPE {
+        int type_id PK
+        string type_name
+    }
+
+    FAV_MEMO {
+        int user_id PK,FK
+        int paper_id PK,FK
+        text memo
+        int fav
+        datetime registered_at
+    }
+
+    USER ||--o{ FAV_MEMO : "writes"
+    PAPER ||--o{ FAV_MEMO : "has"
+    PAPER_TYPE ||--o| PAPER : "defines"
+    PAPER ||--o{ PAPER_TAG : "tags"
+    TAG ||--o{ PAPER_TAG : "has"
+```  
+
+### URL一覧
+
+| 画面                | URL               | 備考                        |
+|---------------------|-------------------|-----------------------------|
+| ログイン            | /login            |                             |
+| ログアウト          | /logout           |                             |
+| トップ              | /                 |                             |
+| 紙の一覧            | /paper/list       |                             |
+| 紙の検索・登録      | /paper            | adminのみ登録可能           |
+| 紙の削除            | /paper/edit       | adminのみ                   |
+| タグの一覧          | /tag/list         |                             |
+| タグの登録          | /tag              |                             |
+| ペーパータグの一覧  | /paper_tag        |                             |
+| お気に入り          | /fav_memo         |                             |
+| お気に入り編集画面  | /fav_memo/edit    |                             |
+| 全ユーザーのお気に入り一覧 | /fav_memo/list | adminのみ                   |
+| ユーザー登録        | /user             |                             |
+| ユーザー一覧        | /user/list        | adminのみ                   |
 
 ## できること
 ### 紙の一覧表示・検索（ログインせずに可能）
