@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>お気に入り</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        body {
+        }
+
+        /* レコード全体のスタイル */
+        .record-container {
+            font-size: 0.8rem;
+            display: flex;
+            width: 80%;
+            margin-bottom: 40px; /* レコード全体のマージン */
+            padding: 10px;
+            border: 1px solid black; /* レコード全体の外枠 */
+            border-top-width: 3px; /* 上の線を3pxに設定 */
+            box-sizing: border-box;
+        }
+
+        /* 左列のスタイル */
+        .left-column {
+            width: 300px;
+            padding-right: 10px;
+            border-right: 1px dotted black; /* 左右の間の点線 */
+        }
+
+        /* 右列のスタイル */
+        .right-column {
+            flex: 1;
+            padding-left: 10px;
+        }
+
+        /* 項目スタイル */
+        .item {
+            display: flex; /* 横並びにする */
+            align-items: flex-start; /* 文字を上揃えに */
+            margin-bottom: 20px; /* 各項目のマージン */
+        }
+
+        /* 項目名のスタイル */
+        .item b {
+            font-size: 0.7rem;
+            min-width: 70px; /* 項目名の幅を調整 */
+            margin-right: 5px;
+            text-align: left; /* 項目名を左揃え */
+        }
+
+        /* 星マークのスタイル */
+        .stars {
+            font-size: 1.2em;
+            color: black;
+            letter-spacing: 0; /* ★と☆の間に余白を入れない */
+        }
+
+        .stars .empty {
+            color: lightgray; /* 白星の色 */
+        }
+    </style>
+</head>
+<body>
+<div th:insert="fragments.html :: header"></div>
+
+<h2>お気に入り</h2>
+
+<!-- レコードごとに表示 -->
+<div th:each="favMemo : ${favMemos}" class="record-container">
+    <!-- 左列 -->
+    <div class="left-column">
+        <div class="item">
+            <b>紙の名前</b>
+            <span th:text="${favMemo.paperName}"></span>
+        </div>
+        <div class="item">
+            <b>種類</b>
+            <span th:text="${favMemo.typeName}"></span>
+        </div>
+        <div class="item">
+            <b>説明</b>
+            <span th:text="${favMemo.description != null ? favMemo.description : 'No description'}"></span>
+        </div>
+
+    </div>
+
+    <!-- 右列 -->
+    <div class="right-column">
+        <div class="item">
+            <span class="stars">
+                <!-- fav = 0 の場合 -->
+                <span th:if="${favMemo.fav == 0}">
+                    ☆ ☆ ☆ ☆ ☆
+                </span>
+
+                <!-- fav = 5 の場合 -->
+                <span th:if="${favMemo.fav == 5}">
+                    ★ ★ ★ ★ ★
+                </span>
+
+                <!-- fav = 1〜4 の場合 -->
+                <span th:if="${favMemo.fav > 0 && favMemo.fav < 5}">
+                    <span th:each="i : ${#numbers.sequence(1, favMemo.fav)}">★ </span>
+                    <span th:each="i : ${#numbers.sequence(favMemo.fav + 1, 5)}">☆ </span>
+                </span>
+            </span>
+        </div>
+        <div class="memo" th:text="${favMemo.memo}" style="white-space: pre-wrap;"></div> <!-- メモ内容のみ表示 -->
+    </div>
+</div>
+
+<div th:insert="~{fragments.html :: footer}"></div>
+</body>
+</html>

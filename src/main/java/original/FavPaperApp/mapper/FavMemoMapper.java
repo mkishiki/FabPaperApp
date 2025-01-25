@@ -2,7 +2,6 @@ package original.FavPaperApp.mapper;
 
 import org.apache.ibatis.annotations.*;
 import original.FavPaperApp.mapper.data.FavMemo;
-import original.FavPaperApp.mapper.data.Paper;
 
 import java.util.List;
 

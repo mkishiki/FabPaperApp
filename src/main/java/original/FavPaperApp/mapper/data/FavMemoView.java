@@ -4,15 +4,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
-public class PaperViewDTO {
+
+public class FavMemoView {
+    private int userId;
     private int paperId;
     private String paperName;
     private String description;
+    private int typeId;
     private String typeName;
-    private String tagNames;  // GROUP_CONCATで複数のタグをカンマ区切りでまとめたもの
-    private Integer userFav;  // お気に入り登録状態（favの値）
+    private int fav;
+    private String memo;
+    private LocalDateTime registeredAt;
 
 }

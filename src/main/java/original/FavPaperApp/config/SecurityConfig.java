@@ -56,7 +56,7 @@ public class SecurityConfig {
                                 "/images/**",
                                 "/",
                                 "/logout-success"
-//                              "/user" //ユーザー登録
+//                             "/user" //ユーザー登録
                         ).permitAll()
 
 //                        .requestMatchers(HttpMethod.POST, // POSTリクエストの認証不要

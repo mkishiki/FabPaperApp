@@ -1,3 +1,4 @@
+/* グローバルなスタイル */
 table {
     width: 80%;
     margin: 0;
@@ -7,14 +8,14 @@ table {
     text-align: left;
 }
 
+/* テーブルのスタイル */
 thead th {
     border-top: 1px solid #000;
     border-bottom: 1px solid #000;
     text-align: left;
     padding: 8px;
     border-right: 1px dotted #999;
-    /* 列の幅を指定 */
-    width: 200px; /* デフォルトの幅 */
+    width: 200px;
 }
 
 /* 最初の3列の幅を指定 */
@@ -43,18 +44,34 @@ tbody td {
     border-right: 1px dotted #999;
 }
 
-tbody td:last-child {
-    border-right: none;
-}
-
 tbody tr:nth-child(even) {
     background-color: #f0f0f0;
 }
 
-tbody tr:hover {
+/*tbody tr:hover {
     background-color: #fff0aa;
+}*/
+
+/* タグラベルのスタイル */
+.tag-label {
+    display: inline-block; /* ラベルを横並びに */
+    background-color: #eeeeee; /* 背景色 */
+    color: #553300; /* 文字色 */
+    padding: 2px 5px; /* 内側の余白 */
+    margin: 2px; /* ラベル間の隙間 */
+    border-radius: 5px; /* 角を丸くする */
+    font-size: 0.8rem; /* 小さめの文字サイズ */
+    white-space: nowrap; /* 折り返しを防止 */
+    border: 1px solid #553300; /* 枠線 */
 }
 
+/* ラベルのホバー効果 */
+.tag-label:hover {
+    background-color: #ffffff; /* ホバー時に背景色を変更 */
+    cursor: pointer; /* ホバー時にポインターを表示 */
+}
+
+/* フッターのスタイル */
 .site-footer {
     font-size: 50%;
     color: #333;

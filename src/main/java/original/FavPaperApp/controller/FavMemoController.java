@@ -30,20 +30,20 @@ public class FavMemoController {
     public List<FavMemo> favMemoList() {
         return service.showFavMemo();
     }
-
-    //user_id,paper_idで検索して表示
-    @GetMapping(value = "/fav_memo")
-    public FavMemo favMemo(@RequestParam int userId, int paperId) {
-        return service.searchFavMemo(userId, paperId);
-    }
-
-    //ファブメモの登録
-    @PostMapping(value = "/fav_memo")
-    public ResponseEntity<FavMemo> registerFavMemo(@RequestBody FavMemo favMemo) throws Exception{
-        favMemo.setRegisteredAt(LocalDateTime.now());
-        FavMemo registerFavMemo = service.registerFavMemo(favMemo);
-        return new ResponseEntity<>(registerFavMemo, HttpStatus.OK);
-    }
+//
+//    //user_id,paper_idで検索して表示
+//    @GetMapping(value = "/fav_memo")
+//    public FavMemo favMemo(@RequestParam int userId, int paperId) {
+//        return service.searchFavMemo(userId, paperId);
+//    }
+//
+//    //ファブメモの登録
+//    @PostMapping(value = "/fav_memo")
+//    public ResponseEntity<FavMemo> registerFavMemo(@RequestBody FavMemo favMemo) throws Exception{
+//        favMemo.setRegisteredAt(LocalDateTime.now());
+//        FavMemo registerFavMemo = service.registerFavMemo(favMemo);
+//        return new ResponseEntity<>(registerFavMemo, HttpStatus.OK);
+//    }
 
     //ファブメモの上書き
     @PostMapping(value = "/fav_memo/edit")

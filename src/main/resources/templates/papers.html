@@ -1,15 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>紙の一覧</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<div th:insert="fragments.html :: header"></div>
+<div th:insert="~{fragments.html :: header}"></div>
 
 <h2>紙の一覧</h2>
+
+<!-- 検索フォーム -->
+<form th:action="@{/paper/search}" method="get">
+    <div>
+        <label for="paperName">紙の名前:</label>
+        <input type="text" id="paperName" name="paperName" th:value="${param.paperName}">
+    </div>
+    <div>
+        <label for="typeName">種類:</label>
+        <input type="text" id="typeName" name="typeName" th:value="${param.typeName}">
+    </div>
+    <div>
+        <label for="tagName">タグ:</label>
+        <input type="text" id="tagName" name="tagName" th:value="${param.tagName}">
+    </div>
+    <div>
+        <button type="submit">検索</button>
+    </div>
+</form>
 
 <table>
     <thead>
@@ -24,8 +41,11 @@
     <tr th:each="paper : ${papers}">
         <td th:text="${paper.paperName}"></td>
         <td th:text="${paper.typeName}"></td>
-        <td th:text="${paper.description != null ? paper.description : 'No description'}"></td>
-        <td th:text="${paper.tagNames}"></td>
+        <td th:text="${paper.description}"></td>
+        <td>
+            <!-- タグをラベル形式で表示 -->
+            <span th:each="tag : ${paper.tagNamesList}" th:text="${tag}" class="tag-label"></span>
+        </td>
     </tr>
     </tbody>
 </table>
