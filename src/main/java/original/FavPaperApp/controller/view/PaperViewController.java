@@ -11,9 +11,6 @@ import original.FavPaperApp.service.PaperViewService;
 import original.FavPaperApp.service.UserService;
 import java.util.List;
 
-/*HTMLページを返すエンドポイント専用のコントローラーです。
-Springの@Controllerを使用。*/
-
 @Controller
 public class PaperViewController {
 
@@ -42,17 +39,21 @@ public class PaperViewController {
         model.addAttribute("userName", getLoggedInUserName());
         List<PaperView> paperList = service.searchPapers(paperName, typeName, tagName);
 
+        // 検索結果に応じたメッセージを設定
         if (paperList.isEmpty()) {
-            model.addAttribute("message", "該当する紙が見つかりませんでした。");
+            model.addAttribute("message", "一致する結果がありません。");
+        } else {
+            model.addAttribute("message", paperList.size() + "件の検索結果があります。");
         }
+
         model.addAttribute("papers", paperList);
 
         return "papers";
     }
 
-/*
-ログインしているユーザー名を表示します。
- */
+    /*
+    ログインしているユーザー名を表示します。
+    */
     private String getLoggedInUserName() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String email = userDetails.getUsername();

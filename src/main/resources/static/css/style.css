@@ -48,11 +48,25 @@ tbody tr:nth-child(even) {
     background-color: #f0f0f0;
 }
 
-/*tbody tr:hover {
-    background-color: #fff0aa;
-}*/
+/* 検索ボタンのコンテナ */
+.search-button-container {
+    margin-top: 15px; /* 上に余白 */
+    margin-bottom: 15px; /* 下に余白 */
+}
 
-/* タグラベルのスタイル */
+/* 検索結果メッセージ */
+.search-result-message {
+    margin-top: 15px;         /* 検索ボタンとの間に余白 */
+    font-size: 1rem;          /* 標準的な文字サイズ */
+    color: #333;              /* テキストカラー */
+}
+
+.search-result-message p {
+    margin: 0;
+    padding: 10px;
+}
+
+/* 一覧のタグラベル */
 .tag-label {
     display: inline-block; /* ラベルを横並びに */
     background-color: #eeeeee; /* 背景色 */
