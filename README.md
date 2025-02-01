@@ -77,8 +77,8 @@ erDiagram
 | ログイン            | /login            |                             |
 | ログアウト          | /logout           |                             |
 | トップ              | /                 |                             |
-| 紙の一覧            | /paper/list       |                             |
-| 紙の検索・登録      | /paper            | adminのみ登録可能           |
+| 紙の一覧・検索            | /paper/list       |                             |
+| 紙の登録      | /paper            | adminのみ           |
 | 紙の削除            | /paper/edit       | adminのみ                   |
 | タグの一覧          | /tag/list         |                             |
 | タグの登録          | /tag              |                             |
