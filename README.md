@@ -14,17 +14,14 @@ Fav Paperは、紙選びが楽しくなる、本づくりに便利なWebアプ�
 
 ## 使用言語
 
-###フロントエンド
-HTML
-CSS
-JavaScript
+### フロントエンド
+HTML / CSS / JavaScript
 
-###バックエンド
-Java
-MySQL
+### バックエンド
+Java / MySQL
 
-###フレームワーク
-Spring boot
+### フレームワーク
+Spring Boot
 
 ## ER図
 ```mermaid
