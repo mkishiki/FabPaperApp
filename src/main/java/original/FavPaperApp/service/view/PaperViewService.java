@@ -1,4 +1,4 @@
-package original.FavPaperApp.service;
+package original.FavPaperApp.service.view;
 
 import org.springframework.stereotype.Service;
 import original.FavPaperApp.mapper.PaperViewMapper;

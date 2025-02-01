@@ -19,23 +19,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-//    @Bean
-//    InMemoryUserDetailsManager userDetailsService() {
-//        UserDetails admin = User
-//                .withUsername("admin")
-//                .password(passwordEncoder().encode("admin1234"))
-//                .roles("ADMIN")
-//                .build();
-//
-//        UserDetails test1 = User
-//                .withUsername("test1")
-//                .password(passwordEncoder().encode("test1"))
-//                .roles("USER")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(admin, test1);
-//    }
-
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())  // 開発環境のみ、CSRF保護を無効化
@@ -56,12 +39,18 @@ public class SecurityConfig {
                                 "/images/**",
                                 "/",
                                 "/logout-success"
-//                             "/user" //ユーザー登録
                         ).permitAll()
 
-//                        .requestMatchers(HttpMethod.POST, // POSTリクエストの認証不要
-//                                "/user" //ユーザー登録
-//                        ).permitAll()
+                        // 一般ユーザーでもPOST可能なエンドポイントを許可
+                        .requestMatchers(HttpMethod.POST, "/paper/toggleFavorite")
+                        .authenticated() // ログインユーザーなら誰でも可能
+
+                        // すべてのPOSTリクエストをADMINに制限
+                        .requestMatchers(HttpMethod.POST)
+                        .hasRole("ADMIN")
+
+                        .requestMatchers(HttpMethod.DELETE) // すべてのDELETEリクエストはadminロールのみ可能
+                        .hasRole("ADMIN")
 
                         .requestMatchers(  // adminロールのみアクセス可能
                                 "/paper/edit",
@@ -70,13 +59,7 @@ public class SecurityConfig {
                                 "/user/edit"
                         ).hasRole("ADMIN")
 
-                        .requestMatchers(HttpMethod.POST) // すべてのPOSTリクエストはadminロールのみ可能
-                        .hasRole("ADMIN")
-
-                        .requestMatchers(HttpMethod.DELETE) // すべてのDELETEリクエストはadminロールのみ可能
-                        .hasRole("ADMIN")
-
-                        .anyRequest().authenticated() //  他のURLはログイン後アクセス可能
+                        .anyRequest().authenticated() // 他のURLはログイン後アクセス可能
                 )
                 .exceptionHandling(exception -> exception
                         .authenticationEntryPoint((request, response, authException) -> {
@@ -84,6 +67,7 @@ public class SecurityConfig {
                             response.sendRedirect("/");
                         })
                 );
+
 
         return http.build();
     }

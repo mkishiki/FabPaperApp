@@ -5,9 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import original.FavPaperApp.mapper.data.FavMemo;
 import original.FavPaperApp.mapper.data.FavMemoView;
-import original.FavPaperApp.service.FavMemoViewService;
+import original.FavPaperApp.service.view.FavMemoViewService;
 import original.FavPaperApp.service.UserService;
 
 import java.util.List;

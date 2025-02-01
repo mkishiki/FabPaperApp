@@ -23,9 +23,14 @@ public class FavMemoService {
         return mapper.selectFavMemoList();
     }
 
-    //user_id,paper_idで検索して表示
+    //userId,paperIdで検索して表示
     public FavMemo searchFavMemo(int userId, int paperId) {
         return mapper.selectFavMemo(userId, paperId);
+    }
+
+    // userIdで検索してpaperIdの一覧を取得
+    public List<Integer> getUserFavoritePaperIds(int userId) {
+        return mapper.selectUserFavoritePaperIds(userId);
     }
 
     //ファブメモの登録

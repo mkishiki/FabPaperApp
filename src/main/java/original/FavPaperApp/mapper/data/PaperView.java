@@ -15,4 +15,6 @@ public class PaperView {
     private String description;
     private String typeName;
     private List<String> tagNamesList; // タグ名のリスト
+
+    private boolean isFavorite; // 追加（お気に入りかどうかを判定するフラグ）
 }

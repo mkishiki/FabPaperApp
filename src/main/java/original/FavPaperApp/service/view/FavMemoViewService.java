@@ -1,8 +1,7 @@
-package original.FavPaperApp.service;
+package original.FavPaperApp.service.view;
 
 import org.springframework.stereotype.Service;
 import original.FavPaperApp.mapper.FavMemoViewMapper;
-import original.FavPaperApp.mapper.data.FavMemo;
 import original.FavPaperApp.mapper.data.FavMemoView;
 
 import java.util.List;

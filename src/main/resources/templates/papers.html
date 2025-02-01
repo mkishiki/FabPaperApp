@@ -41,6 +41,7 @@
         <th>種類</th>
         <th>説明</th>
         <th>タグ</th>
+        <th>お気に入り</th>
     </tr>
     </thead>
     <tbody>
@@ -49,12 +50,18 @@
         <td th:text="${paper.typeName}"></td>
         <td th:text="${paper.description}"></td>
         <td>
-            <!-- タグをラベル形式で表示 -->
             <span th:each="tag : ${paper.tagNamesList}" th:text="${tag}" class="tag-label"></span>
+        </td>
+        <td>
+            <form th:action="@{/paper/toggleFavorite}" method="post">
+                <input type="hidden" name="paperId" th:value="${paper.paperId}" />
+                <button type="submit" th:text="${paper.favorite} ? '削除' : '追加'"></button>
+            </form>
         </td>
     </tr>
     </tbody>
 </table>
+
 
 <div th:insert="~{fragments.html :: footer}"></div>
 </body>

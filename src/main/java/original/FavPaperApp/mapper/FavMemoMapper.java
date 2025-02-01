@@ -16,6 +16,11 @@ public interface FavMemoMapper {
     @Select("select * from fav_memo where user_id = #{userId} and paper_id = #{paperId} order by user_id asc, paper_id asc")
     FavMemo selectFavMemo(int userId, int paperId);
 
+    //userIdで検索してpaperIdの一覧を取得
+    @Select("SELECT paper_id FROM fav_memo WHERE user_id = #{userId}")
+    List<Integer> selectUserFavoritePaperIds(int userId);
+
+
     //ファブメモの登録
     @Insert("insert fav_memo(user_id, paper_id, fav, memo, registered_at) values(#{userId}, #{paperId}, #{fav}, #{memo}, #{registeredAt})")
     void insertFavMemo(FavMemo favMemo);
