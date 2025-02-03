@@ -53,14 +53,45 @@
             <span th:each="tag : ${paper.tagNamesList}" th:text="${tag}" class="tag-label"></span>
         </td>
         <td>
-            <form th:action="@{/paper/toggleFavorite}" method="post">
-                <input type="hidden" name="paperId" th:value="${paper.paperId}" />
-                <button type="submit" th:text="${paper.favorite} ? '削除' : '追加'"></button>
-            </form>
+            <button th:id="'fav-btn-' + ${paper.paperId}"
+                    th:data-paper-id="${paper.paperId}"
+                    th:data-favorite="${paper.favorite}"
+                    th:text="${paper.favorite} ? 'ー 削除' : '＋ 追加'"
+                    th:class="${paper.favorite} ? 'fav-remove' : 'fav-add'"
+                    onclick="toggleFavorite(this)">
+            </button>
+        </td>
+
         </td>
     </tr>
     </tbody>
 </table>
+
+<script>
+    function toggleFavorite(button) {
+    const paperId = button.getAttribute("data-paper-id");
+
+    fetch("/paper/toggleFavorite", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `paperId=${paperId}`
+    }).then(response => response.text())
+      .then(result => {
+          if (result === "ADDED") {
+              button.textContent = "ー 削除";
+              button.setAttribute("data-favorite", "true");
+              button.className = "fav-remove";
+          } else if (result === "DELETED") {
+              button.textContent = "＋ 追加";
+              button.setAttribute("data-favorite", "false");
+              button.className = "fav-add";
+          }
+      }).catch(error => {
+          console.error("エラー:", error);
+          alert("通信エラーが発生しました");
+      });
+}
+</script>
 
 
 <div th:insert="~{fragments.html :: footer}"></div>

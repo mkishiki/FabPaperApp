@@ -79,6 +79,27 @@ tbody tr:nth-child(even) {
     border: 1px solid #553300; /* 枠線 */
 }
 
+/* お気に入りに追加ボタン  */
+.fav-add {
+    background-color: #8899ff;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* お気に入りから削除ボタン */
+.fav-remove {
+    background-color: pink;
+    color: black;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+
 /* ラベルのホバー効果 */
 .tag-label:hover {
     background-color: #ffffff; /* ホバー時に背景色を変更 */
