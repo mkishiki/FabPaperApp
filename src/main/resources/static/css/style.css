@@ -8,6 +8,15 @@ table {
     text-align: left;
 }
 
+/* タグ選択用のチェックボックスラベル */
+.tag-checkbox-label {
+    font-size: 0.8em;          /* 少し小さめの文字サイズ */
+    display: inline-block;      /* 折り返し対応 */
+    word-wrap: break-word;      /* 長い単語でも折り返す */
+    margin: 4px 0;              /* 上下の余白を追加 */
+    line-height: 1.1;           /* 行間を少し広げる */
+}
+
 /* テーブルのスタイル */
 thead th {
     border-top: 1px solid #000;

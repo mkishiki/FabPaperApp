@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import original.FavPaperApp.mapper.data.PaperView;
 import original.FavPaperApp.mapper.data.FavMemo; // 追加
+import original.FavPaperApp.mapper.data.Tag;
+import original.FavPaperApp.service.TagService;
 import original.FavPaperApp.service.view.PaperViewService;
 import original.FavPaperApp.service.UserService;
 import original.FavPaperApp.service.FavMemoService; // 追加
@@ -21,11 +23,13 @@ public class PaperViewController {
     private final PaperViewService service;
     private final UserService userService;
     private final FavMemoService favMemoService; // 追加（お気に入りサービス）
+    private final TagService tagService;
 
-    public PaperViewController(PaperViewService service, UserService userService, FavMemoService favMemoService) { // 修正
+    public PaperViewController(PaperViewService service, UserService userService, FavMemoService favMemoService, TagService tagService) { // 修正
         this.service = service;
         this.userService = userService;
         this.favMemoService = favMemoService; // 追加
+        this.tagService = tagService;
     }
 
     @GetMapping(value = "/paper/list")
@@ -33,8 +37,8 @@ public class PaperViewController {
         model.addAttribute("userName", getLoggedInUserName());
 
         // ログインユーザーの userId を取得
-        String email = getLoggedInUserEmail(); // 追加
-        int userId = userService.searchUser(email).getUserId(); // 追加
+        String email = getLoggedInUserEmail();
+        int userId = userService.searchUser(email).getUserId();
 
         List<PaperView> papers = service.showPaperAll();
 
@@ -47,6 +51,11 @@ public class PaperViewController {
         }
 
         model.addAttribute("papers", papers);
+
+        // 検索画面用のタグ一覧を取得
+        List<Tag> allTags = tagService.showTag();
+        model.addAttribute("allTags", allTags);
+
         return "papers";
     }
 
@@ -54,11 +63,12 @@ public class PaperViewController {
     public String searchPapers(
             @RequestParam(required = false) String paperName,
             @RequestParam(required = false) String typeName,
-            @RequestParam(required = false) String tagName,
+            @RequestParam(required = false) List<String> tagNames,
             Model model) {
 
         model.addAttribute("userName", getLoggedInUserName());
-        List<PaperView> paperList = service.searchPapers(paperName, typeName, tagName);
+
+        List<PaperView> paperList = service.searchPapers(paperName, typeName, tagNames);
 
         if (paperList.isEmpty()) {
             model.addAttribute("message", "一致する結果がありません。");
@@ -66,19 +76,14 @@ public class PaperViewController {
             model.addAttribute("message", paperList.size() + "件の検索結果があります。");
         }
 
-        // 追加: 検索結果にもお気に入り情報を付与
-        String email = getLoggedInUserEmail();
-        int userId = userService.searchUser(email).getUserId();
-        List<Integer> favoritePaperIds = favMemoService.getUserFavoritePaperIds(userId);
-        for (PaperView paper : paperList) {
-            paper.setFavorite(favoritePaperIds.contains(paper.getPaperId()));
-        }
+        model.addAttribute("papers", paperList);   // 検索結果を渡す
+        model.addAttribute("allTags", tagService.showTag()); // タグ一覧も再表示
 
-        model.addAttribute("papers", paperList);
         return "papers";
     }
 
-    // 追加: お気に入りのトグル処理
+
+    // お気に入りのトグル処理
     @PostMapping(value = "/paper/toggleFavorite")
     @ResponseBody
     public String toggleFavorite(@RequestParam int paperId) throws Exception {

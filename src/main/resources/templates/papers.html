@@ -12,17 +12,25 @@
 <!-- 検索フォーム -->
 <form th:action="@{/paper/search}" method="get">
     <div>
-        <label for="paperName">紙の名前:</label>
+        <label for="paperName">紙の名前　</label>
         <input type="text" id="paperName" name="paperName" th:value="${param.paperName}">
     </div>
     <div>
-        <label for="typeName">種類:</label>
+        <label for="typeName">種類　</label>
         <input type="text" id="typeName" name="typeName" th:value="${param.typeName}">
     </div>
-    <div>
-        <label for="tagName">タグ:</label>
-        <input type="text" id="tagName" name="tagName" th:value="${param.tagName}">
+    <div style="max-width: 500px;">
+        <label>タグ（複数選択可）　</label>
+        <div th:each="tag : ${allTags}" class="tag-checkbox-label">
+            <label>
+                <input type="checkbox" name="tagNames" th:value="${tag.tagName}"
+                       th:checked="${param.tagNames != null and (#lists.contains(param.tagNames, tag.tagName) or param.tagNames == tag.tagName)}">
+                <span th:text="${tag.tagName}"></span>
+            </label>
+        </div>
     </div>
+
+
     <div class="search-button-container">
         <button type="submit">検索</button>
     </div>

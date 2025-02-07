@@ -23,19 +23,21 @@ public class PaperViewService {
     }
 
     // 紙を検索して一覧を表示（紙名・種類・タグを条件としてフィルタリング）
-    public List<PaperView> searchPapers(String paperName, String typeName, String tagName) {
+    public List<PaperView> searchPapers(String paperName, String typeName, List<String> tagNames) {
         // 紙のデータをすべて取得
         List<PaperView> paperList = fetchPaperViewsWithTags();
 
         // デバッグ用: 全データを出力
         System.out.println("全紙データ: " + paperList);
 
-        // フィルタリング処理
+        // 検索結果のフィルタリング処理
         List<PaperView> filteredPapers = paperList.stream()
-                .filter(p -> (paperName == null || p.getPaperName().trim().toLowerCase().contains(paperName.trim().toLowerCase()))) // 大文字小文字を無視
-                .filter(p -> (typeName == null || p.getTypeName().trim().toLowerCase().contains(typeName.trim().toLowerCase())))   // 同じく種類のフィルタリング
-                .filter(p -> (tagName == null || p.getTagNamesList().stream().anyMatch(tag -> tag.trim().toLowerCase().contains(tagName.trim().toLowerCase())))) // タグ名でフィルタ
+                .filter(p -> (paperName == null || p.getPaperName().toLowerCase().contains(paperName.toLowerCase())))   //未記入または一致
+                .filter(p -> (typeName == null || p.getTypeName().toLowerCase().contains(typeName.toLowerCase())))  //未記入または一致
+                .filter(p -> (tagNames == null || tagNames.isEmpty() ||
+                        tagNames.stream().allMatch(tag -> p.getTagNamesList().contains(tag))))  // 未記入または空文字または選択したすべてのタグに一致
                 .collect(Collectors.toList());
+
 
         // デバッグ用: フィルタリング後のデータを出力
         System.out.println("フィルタリング後のデータ: " + filteredPapers);
